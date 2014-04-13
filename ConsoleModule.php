@@ -2,18 +2,15 @@
 namespace Grout\Cyantree\ConsoleModule;
 
 use Cyantree\Grout\App\Module;
-use Cyantree\Grout\Database\SqliteConnection;
+use Grout\Cyantree\ConsoleModule\Types\ConsoleConfig;
 
 class ConsoleModule extends Module
 {
-    /** @var SqliteConnection */
-    public static $db;
-
     public function init()
     {
-        $this->addRoute('%%command,.*%%/', 'ConsoleCommandPage');
+        $this->app->configs->setDefaultConfig($this->id, new ConsoleConfig());
 
-        self::$db = new SqliteConnection();
-        self::$db->connect('db.db');
+        $this->addRoute('', 'Pages\ConsoleCommandPage');
+        $this->addRoute('%%command,.*%%/', 'Pages\ConsoleCommandPage');
     }
 }

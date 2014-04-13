@@ -20,41 +20,40 @@ class ConsoleCommandPage extends Page
         $factory = ConsoleFactory::get($this->app);
         $config = $factory->appConfig();
 
-        try{
-            $command = str_replace('/', '\\', $this->task->vars->get('command'));
+        $command = $this->task->vars->get('command');
 
-            if(!preg_match('!^[a-zA-Z0-9_/]+$!', $command)){
-                $this->parseError(ResponseCode::CODE_404);
-            }else{
-                $found = false;
+        if ($command == '') {
+            $command = $config->defaultCommand;
+        }
 
-                $className = null;
-                foreach($config->commandNamespaces as $commandNamespace){
-                    $className = $commandNamespace.$command.'Command';
+        $command = str_replace('/', '\\', $command);
 
-                    if(class_exists($className)){
-                        $found = true;
-                        break;
-                    }
-                }
+        if(!preg_match('!^[a-zA-Z0-9_/]+$!', $command)){
+            $this->parseError(ResponseCode::CODE_404);
 
-                if($found){
-                    /** @var ConsoleCommand $c */
-                    $c = new $className();
-                    $c->task = $this->task;
-                    $c->app = $this->app;
-                    $c->args = new ArrayFilter($this->task->request->get->getData());
-                    $c->execute();
-                }else{
-                    $this->parseError(ResponseCode::CODE_404);
+        }else{
+            $found = false;
+
+            $className = null;
+            foreach($config->commandNamespaces as $commandNamespace){
+                $className = $commandNamespace.$command.'Command';
+
+                if(class_exists($className)){
+                    $found = true;
+                    break;
                 }
             }
-        }catch(PhpWarningException $e){
-            $this->task->app->events->trigger('logException', $e);
-            $this->parseError(ResponseCode::CODE_500);
-        }catch(PhpErrorException $e){
-            $this->task->app->events->trigger('logException', $e);
-            $this->parseError(ResponseCode::CODE_500);
+
+            if($found){
+                /** @var ConsoleCommand $c */
+                $c = new $className();
+                $c->task = $this->task;
+                $c->app = $this->app;
+                $c->args = new ArrayFilter($this->task->request->get->getData());
+                $c->execute();
+            }else{
+                $this->parseError(ResponseCode::CODE_404);
+            }
         }
     }
 

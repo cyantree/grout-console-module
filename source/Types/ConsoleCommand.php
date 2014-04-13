@@ -27,6 +27,15 @@ class ConsoleCommand
         }
     }
 
+    public function read($title = null)
+    {
+        if ($title) {
+            $this->show($title);
+        }
+
+        return fgets(STDIN);
+    }
+
     public function execute()
     {
 
