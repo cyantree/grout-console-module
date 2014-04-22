@@ -4,13 +4,12 @@ namespace Grout\Cyantree\ConsoleModule\Pages;
 use Cyantree\Grout\App\Page;
 use Cyantree\Grout\App\Types\ResponseCode;
 use Cyantree\Grout\Database\Database;
-use Cyantree\Grout\ErrorWrapper\PhpErrorException;
-use Cyantree\Grout\ErrorWrapper\PhpWarningException;
+
+
 use Cyantree\Grout\Filter\ArrayFilter;
 use Cyantree\Grout\Tools\ArrayTools;
 use Cyantree\Grout\Tools\ServerTools;
 use Grout\Cyantree\ConsoleModule\ConsoleFactory;
-use Grout\Cyantree\ConsoleModule\ConsoleModule;
 use Grout\Cyantree\ConsoleModule\Types\ConsoleCommand;
 
 class ConsoleCommandPage extends Page
