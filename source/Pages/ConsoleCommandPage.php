@@ -17,7 +17,7 @@ class ConsoleCommandPage extends Page
     public function parseTask()
     {
         $factory = ConsoleFactory::get($this->app);
-        $config = $factory->appConfig();
+        $config = $factory->config();
 
         $command = $this->task->vars->get('command');
 
