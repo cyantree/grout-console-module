@@ -15,7 +15,7 @@ class ConsoleFactory extends AppFactory
     public static function get(App $app = null, $moduleId = null)
     {
         /** @var ConsoleFactory $factory */
-        $factory = GroutFactory::_getInstance($app, __CLASS__, $moduleId, 'Cyantree\ConsoleModule');
+        $factory = GroutFactory::getFactory($app, __CLASS__, $moduleId, 'Cyantree\ConsoleModule');
 
         return $factory;
     }
