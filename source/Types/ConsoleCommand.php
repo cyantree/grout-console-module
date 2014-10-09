@@ -22,7 +22,7 @@ class ConsoleCommand
     {
         echo iconv('utf-8', 'cp850//IGNORE', $text);
 
-        if($newLine){
+        if ($newLine) {
             echo chr(10);
         }
     }

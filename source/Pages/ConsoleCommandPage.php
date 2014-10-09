@@ -27,30 +27,30 @@ class ConsoleCommandPage extends Page
 
         $command = str_replace('/', '\\', $command);
 
-        if(!preg_match('!^[a-zA-Z0-9_/]+$!', $command)){
+        if (!preg_match('!^[a-zA-Z0-9_/]+$!', $command)) {
             $this->parseError(ResponseCode::CODE_404);
 
-        }else{
+        } else {
             $found = false;
 
             $className = null;
-            foreach($config->commandNamespaces as $commandNamespace){
-                $className = $commandNamespace.$command.'Command';
+            foreach ($config->commandNamespaces as $commandNamespace) {
+                $className = $commandNamespace . $command . 'Command';
 
-                if(class_exists($className)){
+                if (class_exists($className)) {
                     $found = true;
                     break;
                 }
             }
 
-            if($found){
+            if ($found) {
                 /** @var ConsoleCommand $c */
                 $c = new $className();
                 $c->task = $this->task;
                 $c->app = $this->app;
                 $c->args = new ArrayFilter($this->task->request->get->getData());
                 $c->execute();
-            }else{
+            } else {
                 $this->parseError(ResponseCode::CODE_404);
             }
         }
@@ -58,10 +58,10 @@ class ConsoleCommandPage extends Page
 
     public function parseError($code, $data = null)
     {
-        if($code == ResponseCode::CODE_404){
-            echo 'The command wasn\'t found.'.chr(10);
-        }else{
-            echo 'An unknown error occurred.'.chr(10);
+        if ($code == ResponseCode::CODE_404) {
+            echo 'The command wasn\'t found.' . chr(10);
+        } else {
+            echo 'An unknown error occurred.' . chr(10);
         }
     }
 }
