@@ -22,7 +22,7 @@ class ConsoleFactory extends AppFactory
 
     public function config()
     {
-        if (!($tool = $this->getTool(__FUNCTION__, false))) {
+        if (!($tool = $this->retrieveTool(__FUNCTION__))) {
             /** @var ConsoleConfig $tool */
             $tool = $this->app->configs->getConfig($this->module->id);
 
