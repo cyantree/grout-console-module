@@ -16,10 +16,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Grout\\Cyantree\\ConsoleModule\\": [
-                "",
-                "source/"
-            ]
+            "Grout\\Cyantree\\ConsoleModule\\": ""
         }
     },
     "require": {
