@@ -6,6 +6,7 @@ use Cyantree\Grout\App\GroutFactory;
 use Grout\AppModule\AppFactory;
 use Grout\Cyantree\ConsoleModule\Types\ConsoleConfig;
 
+// TODO: Remove dependency of AppFactory
 class ConsoleFactory extends AppFactory
 {
     /** @var ConsoleModule */
